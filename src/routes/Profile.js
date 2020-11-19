@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "fbase";
 import { useHistory } from "react-router-dom";
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ refreshUser, userObj }) => {
   const history = useHistory();
@@ -25,19 +24,29 @@ export default ({ refreshUser, userObj }) => {
       refreshUser();
     }
   };
-
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <div className="container">
+      <form onSubmit={onSubmit} className="profileForm">
         <input
           onChange={onChange}
           type="text"
-          placeholder="Display Name"
+          autoFocus
+          placeholder="Display name"
           value={newDisplayName}
+          className="formInput"
         />
-        <input type="submit" value="Update Profile" />
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{
+            marginTop: 10,
+          }}
+        />
       </form>
-      <button onClick={onLogOutClick}>Log Out</button>
-    </>
+      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </span>
+    </div>
   );
 };
