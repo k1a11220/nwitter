@@ -1,7 +1,7 @@
 import React from "react";
 
-const Home = () => {
+const EditProfile = () => {
   return <div>dd</div>;
 };
 
-export default Home;
+export default EditProfile;
