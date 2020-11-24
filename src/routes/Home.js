@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
+import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
@@ -18,7 +19,7 @@ const Home = ({ userObj }) => {
     await dbService.collection("nweets").add({
       text: nweet,
       createdAt: Date.now(),
-      createdId: userObj.uid,
+      creatorId: userObj.uid,
     });
     setNweet("");
   };
@@ -28,6 +29,7 @@ const Home = ({ userObj }) => {
     } = event;
     setNweet(value);
   };
+  console.log(userObj.uid);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -42,9 +44,11 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {nweets.map((nweet) => (
-          <div key={nweet.id}>
-            <h4>{nweet.text}</h4>
-          </div>
+          <Nweet
+            key={nweet.id}
+            nweetObj={nweet}
+            isOwner={nweet.creatorId === userObj.uid /*같으면 true 다르면 false 반환*/}
+          />
         ))}
       </div>
     </div>
